@@ -109,7 +109,7 @@ class ObjectModelDescriber implements ModelDescriberInterface, ModelRegistryAwar
                 $property->type = 'number';
                 $property->format = 'float';
             } elseif (Type::BUILTIN_TYPE_OBJECT === $type->getBuiltinType()) {
-                if (is_subclass_of($type->getClassName(), \DateTimeInterface::class)) {
+                if (is_a($type->getClassName(), \DateTimeInterface::class, true)) {
                     $property->type = 'string';
                     $property->format = 'date-time';
                 } else {

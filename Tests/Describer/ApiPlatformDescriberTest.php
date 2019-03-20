@@ -13,8 +13,8 @@ namespace Nelmio\ApiDocBundle\Tests\Describer;
 
 use ApiPlatform\Core\Documentation\Documentation;
 use ApiPlatform\Core\Metadata\Resource\ResourceNameCollection;
-use EXSyst\Component\Swagger\Swagger;
 use Nelmio\ApiDocBundle\Describer\ApiPlatformDescriber;
+use Swagger\Annotations\Swagger;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ApiPlatformDescriberTest extends AbstractDescriberTest
@@ -30,8 +30,11 @@ class ApiPlatformDescriberTest extends AbstractDescriberTest
             ->with($this->documentation)
             ->willReturn(['info' => ['title' => 'My Test App']]);
 
-        $expectedApi = new Swagger(['info' => ['title' => 'My Test App']]);
-        $this->assertEquals($expectedApi->toArray(), $this->getSwaggerDoc()->toArray());
+        $toArray = function (Swagger $swagger) {
+            return json_decode(json_encode($swagger), true);
+        };
+
+        $this->assertEquals($toArray(new Swagger(['info' => ['title' => 'My Test App']])), $toArray($this->getSwaggerDoc()));;
     }
 
     public function testDescribeRemovesBasePathAfterNormalization()
@@ -41,8 +44,11 @@ class ApiPlatformDescriberTest extends AbstractDescriberTest
             ->with($this->documentation)
             ->willReturn(['info' => ['title' => 'My Test App'], 'basePath' => '/foo']);
 
-        $expectedApi = new Swagger(['info' => ['title' => 'My Test App']]);
-        $this->assertEquals($expectedApi->toArray(), $this->getSwaggerDoc()->toArray());
+        $toArray = function (Swagger $swagger) {
+            return json_decode(json_encode($swagger), true);
+        };
+
+        $this->assertEquals($toArray(new Swagger(['info' => ['title' => 'My Test App']])), $toArray($this->getSwaggerDoc()));;
     }
 
     protected function setUp()

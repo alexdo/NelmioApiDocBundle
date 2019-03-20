@@ -212,7 +212,8 @@ class JMSFunctionalTest extends WebTestCase
                 'living' => ['$ref' => '#/definitions/JMSChatLivingRoom'],
                 'dining' => ['$ref' => '#/definitions/JMSChatRoom'],
             ],
-        ], $this->getModel('JMSChatFriend')->toArray());
+            'definition' => 'JMSChatFriend',
+        ], $this->toArray($this->getModel('JMSChatFriend')));
 
         $this->assertEquals([
             'type' => 'object',
@@ -221,7 +222,8 @@ class JMSFunctionalTest extends WebTestCase
                 'id2' => ['type' => 'integer'],
                 'id3' => ['type' => 'integer'],
             ],
-        ], $this->getModel('JMSChatRoom')->toArray());
+            'definition' => 'JMSChatRoom',
+        ], $this->toArray($this->getModel('JMSChatRoom')));
     }
 
     public function testNestedGroupsV2()
@@ -236,21 +238,21 @@ class JMSFunctionalTest extends WebTestCase
                 'living' => ['$ref' => '#/definitions/JMSChatLivingRoom'],
                 'dining' => ['$ref' => '#/definitions/JMSChatRoom'],
             ],
-        ], $this->getModel('JMSChatFriend')->toArray());
+        ], $this->toArray($this->getModel('JMSChatFriend')));
 
         $this->assertEquals([
             'type' => 'object',
             'properties' => [
                 'id2' => ['type' => 'integer'],
             ],
-        ], $this->getModel('JMSChatRoom')->toArray());
+        ], $this->toArray($this->getModel('JMSChatRoom')));
 
         $this->assertEquals([
             'type' => 'object',
             'properties' => [
                 'id' => ['type' => 'integer'],
             ],
-        ], $this->getModel('JMSChatLivingRoom')->toArray());
+        ], $this->toArray($this->getModel('JMSChatLivingRoom')));
     }
 
     public function testModelComplexDocumentation()

@@ -72,12 +72,12 @@ class SymfonyConstraintAnnotationReader
             } elseif ($annotation instanceof Assert\Expression) {
                 $this->appendPattern($property, $annotation->message);
             } elseif ($annotation instanceof Assert\Range) {
-                $property->setMinimum($annotation->min);
-                $property->setMaximum($annotation->max);
+                $property->minimum = $annotation->min;
+                $property->maximum = $annotation->max;
             } elseif ($annotation instanceof Assert\LessThan) {
-                $property->setExclusiveMaximum($annotation->value);
+                $property->exclusiveMaximum = $annotation->value;
             } elseif ($annotation instanceof Assert\LessThanOrEqual) {
-                $property->setMaximum($annotation->value);
+                $property->maximum = $annotation->value;
             }
         }
     }
